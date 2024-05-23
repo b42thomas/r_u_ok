@@ -173,7 +173,7 @@
       }
 
       const initializeButton = document.getElementById('initialize')
-      initializeButton.onclick = initialize
+      initializeButton.onmousedown = initialize
 
 
       /*
@@ -311,7 +311,7 @@
       const runButton = document.getElementById('run')
       var running = false
       var intervalId = null
-      runButton.onclick = () => {
+      runButton.onmousedown = () => {
         if (running) {
           clearInterval(intervalId)
           running = false
@@ -322,7 +322,7 @@
       }
 
       const camera = document.getElementById('camera')
-      camera.onclick = async () => {
+      camera.onmousedown = async () => {
         const snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height)
         const canvas2 = document.getElementById('ruokCanvas2')
         canvas2.width = width
