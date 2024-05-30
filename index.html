@@ -5,34 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R U OK?</title>
+
 </head>
 
 <body>
+  <!-- Hey, are you ok? -->
   <h1>R U OK?</h1>
   <div>
     <label>width</label><span id="width"></span>
     <label>height</label><span id="height"></span>
     <label>query params</label><span id="queryParams"></span>
+    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1833284973&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+    <div
+      style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+      <a href="https://soundcloud.com/this-bill-is-single" title="One Dollar Bill" target="_blank"
+        style="color: #cccccc; text-decoration: none;">One Dollar Bill</a> · <a
+        href="https://soundcloud.com/this-bill-is-single/r-u-ok-may-29-24" title="R U OK? - May - 29 - 24"
+        target="_blank" style="color: #cccccc; text-decoration: none;">R U OK? - May - 29 - 24</a>
+    </div>
     <!-- <p>TODO: MOOD RING based on colors chosen. game of life rules dependent upon the value difference between color a and color b </p> -->
-    <button id="initialize">Initialize</button>
-    <button id="run">▶️</button>
-    <button id="camera">📸</button>
+    <!-- TODO: set default colorA and colorB to some mapping of the position of the moon and time of day based on the Date.now  -->
+    <ol>
+      <li>Choose 2 colors</li>
+      <li>Click Initialize</li>
+      <li>Click Run</li>
+      <li>Click 📸 to take a snapshot</li>
+      <li>Click 💾 to save the snapshot</li>
+      <li>Click ▶️ to pause/play</li>
+      <li>Send your creation to @onedollarbill on instagram</li>
+    </ol>
+
+    <div class="container">
+      <input type="color" id="colorA" class="color_input">
+      <span class="container" id="colorA_val"></span>
+    </div>
+    <div class="container">
+      <input type="color" id="colorB" class="color_input">
+      <span class="container" id="colorB_val"></span>
+    </div>
+    <div>
+      <button id="initialize">Initialize</button>
+    </div>
+    <div>
+      <button id="run">Run ▶️</button>
+    </div>
+    <div>
+      <button id="camera">Snapshot 📸</button>
+    </div>
+    <div>
+      <button id="save">Save 💾</button>
+    </div>
+
     <span id="generationCount">0</span>
-    <input type="color" id="colorA">
-    <input type="color" id="colorB">
+
   </div>
   <canvas id="ruokCanvas" width="500" height="500" style="border:1px solid #000000;">
   </canvas>
-  <button id="save">💾</button>
-  <ol>
-    <li>Choose 2 colors</li>
-    <li>Click Initialize</li>
-    <li>Click Run</li>
-    <li>Click 📸 to take a snapshot</li>
-    <li>Click 💾 to save the image</li>
-    <li>Click ▶️ to pause/play</li>
-    <li>Send your creation to @onedollarbill on instagram</li>
-  </ol>
+
+
   <canvas id="ruokCanvas2" width="500" height="500" style="border:1px solid #000000;">
   </canvas>
   <div>
@@ -41,9 +72,43 @@
     <img id="asl_o_image" src="images/asl_o.jpeg" alt="American Sign Language O">
     <img id="asl_k_image" src="images/asl_k.jpeg" alt="American Sign Language K">
   </div>
+
+
   <div>
     Made with 🫶 love by 💸 onedollarbill and 🐶 smokey
   </div>
+
+  <style>
+    div {
+      margin: 4px;
+    }
+
+    button {
+      padding: 20px;
+    }
+
+    input {
+      padding: 20px;
+    }
+
+    .color_input {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+      border: none;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .color_input::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .color_input::-webkit-color-swatch {
+      border: none;
+      border-radius: 50%;
+    }
+  </style>
 
   <script>
     (async () => {
@@ -141,8 +206,27 @@
       // glitchyShift()
 
       // COLORS
+      let colorAButton = document.getElementById("colorA")
+      let colorADiv = document.getElementById("colorA_val")
+
+      colorAButton.oninput = function () {
+        colorADiv.innerHTML = colorAButton.value
+        colorADiv.style.color = colorAButton.value
+      }
+
+      let colorBButton = document.getElementById("colorB")
+      let colorBDiv = document.getElementById("colorB_val")
+
+      colorBButton.oninput = function () {
+        colorBDiv.innerHTML = colorBButton.value
+        colorBDiv.style.color = colorBButton.value
+      }
+
+
       var colorA = document.getElementById('colorA').value
       var colorB = document.getElementById('colorB').value
+
+
 
       const blackToA = () => {
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
